@@ -27,10 +27,10 @@ async def tick(req: TickRequest) -> TickResponse:
     try:
         message = "TEST MESSAGE FROM VERA"
     except Exception as exc:
-    logger.exception("AI generation failed during tick: %s", exc)
-    raise HTTPException(
-        status_code=502,
-        detail=f"AI generation failed: {str(exc)}"
+        logger.exception("AI generation failed during tick: %s", exc)
+        raise HTTPException(
+            status_code=502,
+            detail=f"AI generation failed: {str(exc)}"
     )
 
     # Store Vera's proactive message in history
