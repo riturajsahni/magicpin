@@ -35,11 +35,22 @@ app.add_middleware(
 # ── Routes ────────────────────────────────────────────────────────────────────
 PREFIX = "/v1"
 
-app.include_router(context.router,  prefix=PREFIX, tags=["Context"])
-app.include_router(tick.router,     prefix=PREFIX, tags=["Tick"])
-app.include_router(reply.router,    prefix=PREFIX, tags=["Reply"])
-app.include_router(health.router,   prefix=PREFIX, tags=["Health"])
+app.include_router(context.router, prefix=PREFIX, tags=["Context"])
+app.include_router(tick.router, prefix=PREFIX, tags=["Tick"])
+app.include_router(reply.router, prefix=PREFIX, tags=["Reply"])
+app.include_router(health.router, prefix=PREFIX, tags=["Health"])
 app.include_router(metadata.router, prefix=PREFIX, tags=["Metadata"])
+
+
+# ── Root Endpoint ─────────────────────────────────────────────────────────────
+@app.get("/")
+async def root():
+    return {
+        "name": "Magicpin Merchant AI",
+        "status": "running",
+        "version": "1.0.0",
+        "docs": "/docs"
+    }
 
 
 @app.on_event("startup")
