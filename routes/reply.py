@@ -27,11 +27,11 @@ async def reply(req: ReplyRequest) -> ReplyResponse:
     try:
         vera_reply = "TEST REPLY FROM VERA"
     except Exception as exc:
-    logger.exception("AI generation failed during reply: %s", exc)
-    raise HTTPException(
-        status_code=502,
-        detail=f"AI generation failed: {str(exc)}"
-    )
+        logger.exception("AI generation failed during reply: %s", exc)
+        raise HTTPException(
+            status_code=502,
+            detail=f"AI generation failed: {str(exc)}"
+        ) from exc
 
     # Save Vera's reply to history
     memory.add_message(req.merchant_id, "assistant", vera_reply)
